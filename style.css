@@ -497,3 +497,119 @@ a{color:inherit;text-decoration:none}
   .hbadge{padding:0 14px}
   .modal{padding:22px 18px}
 }
+
+/* ══ Free AE Section ════════════════════════════════════ */
+.free-ae{
+  border-top:1px solid var(--line);
+  padding:100px 5%;
+  max-width:1100px;margin:auto;
+}
+.free-ae-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;padding:56px 48px;position:relative;overflow:hidden;
+}
+.free-ae-inner::before{
+  content:"";position:absolute;top:-80px;left:-80px;
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(255,92,0,0.07),transparent 65%);
+  pointer-events:none;
+}
+.free-ae-inner::after{
+  content:"";position:absolute;bottom:-60px;right:-60px;
+  width:240px;height:240px;
+  background:radial-gradient(circle,rgba(200,255,0,0.05),transparent 65%);
+  pointer-events:none;
+}
+.free-ae-kicker{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:0.7rem;
+  letter-spacing:0.14em;color:var(--text2);margin-bottom:16px;
+}
+.free-ae-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  line-height:0.95;letter-spacing:0.02em;margin-bottom:20px;
+}
+.free-ae-title em{color:var(--accent);font-style:normal}
+.free-ae-desc{
+  font-size:0.96rem;color:var(--text2);
+  line-height:1.75;max-width:420px;margin-bottom:22px;
+}
+.free-ae-tags{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;
+}
+.free-ae-tags span{
+  font-family:var(--font-mono);font-size:0.72rem;
+  color:var(--pro);background:rgba(200,255,0,0.08);
+  border:1px solid rgba(200,255,0,0.18);
+  padding:5px 12px;border-radius:8px;letter-spacing:0.04em;
+}
+.free-ae-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#000;font-weight:700;font-size:1rem;
+  padding:15px 30px;border-radius:999px;
+  box-shadow:0 8px 26px rgba(255,92,0,0.28);
+  transition:background 0.18s,transform 0.15s;width:fit-content;
+}
+.free-ae-btn:hover{background:var(--accent2);transform:translateY(-2px)}
+.free-ae-note{
+  font-size:0.78rem;color:var(--text2);
+  font-family:var(--font-mono);margin-top:12px;
+}
+
+/* AE Card */
+.free-ae-right{display:flex;justify-content:center;align-items:center}
+.ae-card{
+  background:var(--bg3);border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;padding:28px 24px;
+  display:flex;flex-direction:column;gap:16px;
+  width:100%;max-width:280px;
+  position:relative;z-index:1;
+}
+.ae-card-top{display:flex;align-items:center;justify-content:space-between}
+.ae-icon{
+  width:52px;height:52px;
+  background:linear-gradient(135deg,#00005b,#0000b3);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:1.4rem;color:#9999ff;
+  letter-spacing:0.02em;
+}
+.ae-badge{
+  font-family:var(--font-mono);font-size:0.72rem;font-weight:500;
+  background:var(--pro);color:#000;
+  padding:4px 10px;border-radius:6px;letter-spacing:0.06em;
+}
+.ae-card h3{
+  font-family:var(--font-display);font-size:1.6rem;
+  letter-spacing:0.02em;color:var(--text);
+}
+.ae-card p{font-size:0.84rem;color:var(--text2);line-height:1.55}
+.ae-os{display:flex;gap:12px}
+.ae-os-item{
+  flex:1;background:var(--bg2);border:1px solid var(--line);
+  border-radius:10px;padding:10px 12px;
+  display:flex;align-items:center;gap:8px;
+  font-size:0.82rem;color:var(--text2);
+}
+.os-icon{font-size:1rem}
+.ae-dl-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--pro);color:#000;
+  font-weight:700;font-size:0.92rem;
+  padding:13px;border-radius:999px;
+  box-shadow:0 6px 20px rgba(200,255,0,0.2);
+  transition:background 0.18s,transform 0.15s;
+}
+.ae-dl-btn:hover{background:var(--pro2);transform:translateY(-1px)}
+
+@media(max-width:860px){
+  .free-ae-inner{grid-template-columns:1fr;gap:36px;padding:32px 24px}
+  .free-ae-right{justify-content:flex-start}
+  .ae-card{max-width:100%}
+}
+@media(max-width:580px){
+  .free-ae{padding:60px 4%}
+  .free-ae-inner{padding:24px 18px}
+}
