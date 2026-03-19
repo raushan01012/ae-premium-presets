@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top 10 Premium After Effects CC — RaushanExplains</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="noise"></div>
+
+  <!-- ── PAYMENT POPUP ───────────────────────────── -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+
+      <div class="popup-header">
+        <div class="popup-badge">🎬 After Effects CC Pack</div>
+        <h2>Complete Payment</h2>
+        <p>Scan QR or pay via UPI · <strong>₹19 only</strong></p>
+      </div>
+
+      <div class="popup-body">
+
+        <div class="qr-wrap">
+          <img src="qr1.jpeg" alt="PhonePe QR" class="qr-img" />
+          <p class="qr-label">📱 PhonePe · GPay · Paytm · Any UPI</p>
+        </div>
+
+        <div class="upi-box">
+          <span class="upi-label">UPI ID</span>
+          <div class="upi-row">
+            <span class="upi-id">9304286957@ybl</span>
+            <button class="copy-btn" onclick="copyUPI()">Copy</button>
+          </div>
+        </div>
+
+        <div class="amount-remind">
+          <span>💰 Enter exact amount:</span>
+          <strong>₹19</strong>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="upload-title">✅ Payment ke baad screenshot upload karo</p>
+        <label class="upload-label" for="screenshotInput">
+          <span id="uploadText">📸 Screenshot upload karo</span>
+          <input type="file" id="screenshotInput" accept="image/*" onchange="handleFile(this)" />
+        </label>
+        <img id="previewImg" class="preview-img" style="display:none" alt="preview" />
+
+        <div class="wa-section">
+          <p>WhatsApp pe bhi bhejo — <strong>faster delivery</strong>:</p>
+          <a href="https://wa.me/919304286957?text=Hi%20Raushan!%20Maine%20%E2%82%B919%20pay%20kar%20diya%20After%20Effects%20CC%20Pack%20ke%20liye.%20Screenshot%20bhej%20raha%20hoon." 
+             target="_blank" class="wa-btn">💬 WhatsApp pe bhejo</a>
+        </div>
+
+        <button class="btn-primary btn-submit" id="submitBtn" onclick="submitPayment()" disabled>
+          Submit Screenshot
+        </button>
+
+        <p class="popup-note">⚡ CC files <strong>WhatsApp pe bhej denge</strong> verification ke baad · Usually within 30 mins</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUCCESS POPUP ────────────────────────────── -->
+  <div class="popup-overlay" id="successOverlay" style="display:none">
+    <div class="popup popup--success">
+      <div class="success-icon">✓</div>
+      <h2>Screenshot Received!</h2>
+      <p>Payment verify karke <strong>CC files WhatsApp pe bhej denge</strong> — usually within 30 minutes.</p>
+      <p class="success-wa">WhatsApp: <strong>+91 93042 86957</strong></p>
+      <button class="btn-primary" onclick="closeSuccess()">Got it! 🔥</button>
+    </div>
+  </div>
+
+  <!-- ── NAV ──────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-brand">Raushan<em>Explains</em></span>
+      <a href="#buy" class="nav-cta">Get CC Pack →</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-tag">🎬 After Effects</span>
+      <span class="hero-tag">✨ Premium CC</span>
+      <span class="hero-tag">⚡ Instant Delivery</span>
+    </div>
+
+    <h1 class="hero-title">
+      Top 10 Premium<br>
+      <em>After Effects CC</em><br>
+      at just <span class="hero-price">₹19</span>
+    </h1>
+
+    <p class="hero-sub">
+      Pro-level color corrections used by top editors & creators —
+      now at a price that's cheaper than chai ☕
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <strong>10</strong>
+        <span>Premium CCs</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <strong>AE</strong>
+        <span>After Effects</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <strong>₹19</strong>
+        <span>One-time only</span>
+      </div>
+    </div>
+
+    <button class="btn-primary btn-hero" onclick="openPopup()">
+      Get All 10 CCs — <strong>₹19</strong>
+    </button>
+    <p class="hero-note">Pay via UPI · Delivered on WhatsApp · No subscription</p>
+
+    <!-- Floating preview cards -->
+    <div class="preview-cards">
+      <div class="preview-card pc1">
+        <div class="pc-bar" style="background:linear-gradient(90deg,#ff6b35,#f7931e)"></div>
+        <span>Cinematic Orange</span>
+      </div>
+      <div class="preview-card pc2">
+        <div class="pc-bar" style="background:linear-gradient(90deg,#1a1a2e,#16213e,#0f3460)"></div>
+        <span>Dark Moody Blue</span>
+      </div>
+      <div class="preview-card pc3">
+        <div class="pc-bar" style="background:linear-gradient(90deg,#2d5016,#4a7c59,#7fb069)"></div>
+        <span>Forest Green</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT YOU GET ──────────────────────────────── -->
+  <section class="whatyouget">
+    <div class="section-label">What's included</div>
+    <h2 class="section-title">10 Premium CCs<br>worth ₹500+</h2>
+
+    <div class="cc-grid">
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#ff6b35 0%,#f7931e 50%,#ffd700 100%)"></div>
+        <div class="cc-info">
+          <h3>01. Cinematic Orange Teal</h3>
+          <p>Hollywood blockbuster look — warm highlights, cool shadows</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1a2e 50%,#16213e 100%)"></div>
+        <div class="cc-info">
+          <h3>02. Dark Moody Night</h3>
+          <p>Deep shadows aur rich contrast — perfect for night vlogs</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 40%,#dee2e6 100%)"></div>
+        <div class="cc-info">
+          <h3>03. Clean Minimal White</h3>
+          <p>Soft, airy feel — great for product & lifestyle videos</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#7b2d8b 0%,#a855f7 50%,#ec4899 100%)"></div>
+        <div class="cc-info">
+          <h3>04. Neon Purple Glow</h3>
+          <p>Vibrant cyberpunk aesthetic — trending on Reels & Shorts</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#2d5016 0%,#4a7c59 50%,#7fb069 100%)"></div>
+        <div class="cc-info">
+          <h3>05. Forest Green Vintage</h3>
+          <p>Earthy tones with a retro feel — nature & travel edits</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#8b4513 0%,#cd853f 50%,#daa520 100%)"></div>
+        <div class="cc-info">
+          <h3>06. Golden Hour Warm</h3>
+          <p>Sunset warmth — perfect for wedding & portrait videos</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#003049 0%,#d62828 50%,#f77f00 100%)"></div>
+        <div class="cc-info">
+          <h3>07. Red Bold Contrast</h3>
+          <p>High energy, punchy colors — sports & action edits</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#e8d5b7 0%,#d4a574 50%,#c4813a 100%)"></div>
+        <div class="cc-info">
+          <h3>08. Film Grain Vintage</h3>
+          <p>Old-school film look with grain — cinematic storytelling</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#00b4db 0%,#0083b0 50%,#005f73 100%)"></div>
+        <div class="cc-info">
+          <h3>09. Ocean Blue Cool</h3>
+          <p>Cool, desaturated look — travel & documentary style</p>
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-preview" style="background:linear-gradient(135deg,#ff0080 0%,#ff6b35 30%,#ffd700 60%,#00ff88 100%)"></div>
+        <div class="cc-info">
+          <h3>10. Vibrant Pop Color</h3>
+          <p>Loud, saturated punch — music videos & trending Reels</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ──────────────────────────────── -->
+  <section class="how">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">3 simple steps</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Pay ₹19</h3>
+        <p>Scan QR ya UPI ID se payment karo — koi bhi UPI app chalega</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Screenshot bhejo</h3>
+        <p>Payment ka screenshot website pe upload karo ya WhatsApp pe bhejo</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>CC files pao</h3>
+        <p>Verification ke baad saari 10 CC files WhatsApp pe bhej denge</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ───────────────────────────────────── -->
+  <section class="proof">
+    <div class="section-label">Reviews</div>
+    <h2 class="section-title">Editors love it 🔥</h2>
+    <div class="reviews">
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p>"Bhai ₹19 mein itna premium? Cinematic Orange CC ne meri edit ka level hi badal diya!"</p>
+        <div class="reviewer"><div class="reviewer-avatar">V</div><span>Vivek R. — Mumbai</span></div>
+      </div>
+      <div class="review review--accent">
+        <div class="review-stars">★★★★★</div>
+        <p>"After Effects mein lagaya aur views double ho gaye. Dark Moody CC is 🔥🔥"</p>
+        <div class="reviewer"><div class="reviewer-avatar">S</div><span>Sahil K. — Delhi</span></div>
+      </div>
+      <div class="review">
+        <div class="review-stars">★★★★★</div>
+        <p>"Literally 19 rupees mein yeh quality? Bhai subscribe kar lena chahiye tha pehle se!"</p>
+        <div class="reviewer"><div class="reviewer-avatar">A</div><span>Ananya M. — Pune</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BUY SECTION ───────────────────────────────── -->
+  <section class="buy" id="buy">
+    <div class="buy-card">
+      <div class="buy-left">
+        <div class="section-label" style="color:var(--accent)">Limited time offer</div>
+        <h2 class="buy-title">10 Premium CCs.<br>₹19 only.</h2>
+        <ul class="buy-list">
+          <li>✓ 10 premium After Effects CC files</li>
+          <li>✓ Delivered on WhatsApp instantly</li>
+          <li>✓ Works on AE CC 2019 and above</li>
+          <li>✓ One-time payment — no subscription</li>
+          <li>✓ Bonus: How to apply CC tutorial</li>
+        </ul>
+      </div>
+      <div class="buy-right">
+        <div class="price-tag">
+          <span class="price-old">₹499</span>
+          <span class="price-new">₹19</span>
+          <span class="price-badge">96% OFF 🔥</span>
+        </div>
+        <p class="buy-urgency">⏰ Launch price — sirf kuch time ke liye</p>
+        <button class="btn-primary btn-buy" onclick="openPopup()">
+          Get All 10 CCs Now
+        </button>
+        <p class="buy-safe">🔒 Pay via UPI · QR · PhonePe · GPay · Paytm</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────── -->
+  <section class="faq">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Quick answers</h2>
+    <div class="faqs">
+      <details class="faq-item">
+        <summary>CC files kaise milegi payment ke baad?</summary>
+        <p>Payment screenshot bhejo → hum verify karenge → saari 10 CC files WhatsApp pe bhej denge. Usually 30 minutes ke andar!</p>
+      </details>
+      <details class="faq-item">
+        <summary>Konsa After Effects version chahiye?</summary>
+        <p>AE CC 2019 aur uske baad ke saare versions mein kaam karega. Mobile editing apps mein apply nahi hoga.</p>
+      </details>
+      <details class="faq-item">
+        <summary>CC files kaise use karte hain?</summary>
+        <p>After Effects mein file import karo, apni timeline pe drag karo — bas! Bonus tutorial bhi milega saath mein.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Refund milega?</summary>
+        <p>Digital files hain isliye refund nahi hoga. But koi problem ho toh Instagram pe DM karo — zaroor help karenge.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────── -->
+  <footer class="footer">
+    <p class="footer-brand">Raushan<em>Explains</em></p>
+    <p class="footer-links">
+      <a href="#">Privacy Policy</a> · <a href="#">Terms</a> ·
+      <a href="https://instagram.com/raushanexplains" target="_blank">@raushanexplains</a>
+    </p>
+    <p class="footer-copy">© 2026 RaushanExplains. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
