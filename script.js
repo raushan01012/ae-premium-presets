@@ -4,7 +4,7 @@
 
 const PACK_INFO = {
   starter: { label: "Starter Pack — 10 CC Files", url: "success.html?pack=starter" },
-  pro: { label: "Pro Pack — 30 CC Files", url: "success.html?pack=pro" }
+  pro:     { label: "Pro Pack — 30 CC Files",     url: "success.html?pack=pro"     }
 };
 
 // Called when user clicks a Pay button
@@ -16,13 +16,13 @@ function onPayClick(pack) {
 }
 
 function showBanner(pack) {
-  const info = PACK_INFO[pack];
+  const info   = PACK_INFO[pack];
   const banner = document.getElementById("dlBanner");
-  const sub = document.getElementById("dlBannerSub");
-  const btn = document.getElementById("dlBannerBtn");
+  const sub    = document.getElementById("dlBannerSub");
+  const btn    = document.getElementById("dlBannerBtn");
   if (!banner) return;
   sub.textContent = info.label;
-  btn.href = info.url;
+  btn.href        = info.url;
   banner.classList.add("show");
 }
 
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (entries, o) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
+            entry.target.style.opacity   = "1";
             entry.target.style.transform = "translateY(0)";
             o.unobserve(entry.target);
           }
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { threshold: 0.08, rootMargin: "0px 0px -20px 0px" }
     );
     els.forEach((el, i) => {
-      el.style.opacity = "0";
+      el.style.opacity   = "0";
       el.style.transform = "translateY(20px)";
       el.style.transition = `opacity 0.45s ease ${i * 0.05}s, transform 0.45s ease ${i * 0.05}s`;
       obs.observe(el);
