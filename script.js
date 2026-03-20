@@ -1,129 +1,46 @@
-// ── Modal ─────────────────────────────────────────────────────────────
-let currentPack = "starter";
+// ═══════════════════════════════════════════════════════
+//  RaushanExplains CC Packs — script.js
+// ═══════════════════════════════════════════════════════
 
-function openModal(pack) {
-  currentPack = pack;
+const PACK_INFO = {
+  starter: { label: "Starter Pack — 10 CC Files", url: "success.html?pack=starter" },
+  pro: { label: "Pro Pack — 30 CC Files", url: "success.html?pack=pro" }
+};
 
-  const isPro = pack === "pro";
-  const amount = isPro ? "₹49" : "₹19";
-  const packName = isPro ? "🔥 PRO PACK · ₹49" : "🎬 STARTER PACK · ₹19";
-  const waMsg = isPro
-    ? "Hi Raushan! Maine ₹49 pay kar diya Pro CC Pack (30 CCs) ke liye. Screenshot bhej raha/rahi hoon 🙏🎬"
-    : "Hi Raushan! Maine ₹19 pay kar diya Starter CC Pack (10 CCs) ke liye. Screenshot bhej raha/rahi hoon 🙏🎬";
-
-  // Update modal content
-  document.getElementById("modalPill").textContent = packName;
-  document.getElementById("modalAmount").textContent = amount;
-  document.getElementById("payAmount").textContent = amount;
-  document.getElementById("waLink").href =
-    `https://wa.me/919304286957?text=${encodeURIComponent(waMsg)}`;
-
-  // Reset upload state
-  document.getElementById("fileText").textContent = "Tap to upload screenshot";
-  document.getElementById("previewImg").style.display = "none";
-  document.getElementById("submitBtn").disabled = true;
-  document.getElementById("submitBtn").textContent = "Submit Screenshot";
-  document.getElementById("fileInput").value = "";
-
-  // Open modal
-  const overlay = document.getElementById("modalOverlay");
-  overlay.style.display = "flex";
-  requestAnimationFrame(() => overlay.classList.add("active"));
-  document.body.style.overflow = "hidden";
+// Called when user clicks a Pay button
+function onPayClick(pack) {
+  localStorage.setItem("raushan_pack", pack);
+  // Show sticky download banner after short delay
+  // (gives time for Razorpay tab to open)
+  setTimeout(() => showBanner(pack), 900);
 }
 
-function closeModal() {
-  const overlay = document.getElementById("modalOverlay");
-  overlay.classList.remove("active");
-  setTimeout(() => { overlay.style.display = "none"; document.body.style.overflow = ""; }, 220);
+function showBanner(pack) {
+  const info = PACK_INFO[pack];
+  const banner = document.getElementById("dlBanner");
+  const sub = document.getElementById("dlBannerSub");
+  const btn = document.getElementById("dlBannerBtn");
+  if (!banner) return;
+  sub.textContent = info.label;
+  btn.href = info.url;
+  banner.classList.add("show");
 }
 
-function closeSuccess() {
-  const overlay = document.getElementById("successOverlay");
-  overlay.classList.remove("active");
-  setTimeout(() => { overlay.style.display = "none"; document.body.style.overflow = ""; }, 220);
+function closeBanner() {
+  document.getElementById("dlBanner")?.classList.remove("show");
+  // Don't clear localStorage — user might need it after payment
 }
 
-// Close on backdrop click
-document.getElementById("modalOverlay").addEventListener("click", function (e) {
-  if (e.target === this) closeModal();
-});
-
-// ── Copy UPI ──────────────────────────────────────────────────────────
-function copyUPI() {
-  navigator.clipboard.writeText("9304286957@ybl").then(() => {
-    const btn = document.querySelector(".copy-btn");
-    btn.textContent = "Copied ✓";
-    btn.style.background = "rgba(255,92,0,0.28)";
-    setTimeout(() => { btn.textContent = "Copy"; btn.style.background = ""; }, 2000);
-  });
-}
-
-// ── File Upload ───────────────────────────────────────────────────────
-function handleFile(input) {
-  const file = input.files[0];
-  if (!file) return;
-
-  document.getElementById("fileText").textContent = "✅ " + file.name;
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const img = document.getElementById("previewImg");
-    img.src = e.target.result;
-    img.style.display = "block";
-  };
-  reader.readAsDataURL(file);
-
-  const btn = document.getElementById("submitBtn");
-  btn.disabled = false;
-  btn.textContent = "Submit Screenshot ✓";
-}
-
-// ── Submit ────────────────────────────────────────────────────────────
-function submitPayment() {
-  const input = document.getElementById("fileInput");
-  if (!input.files[0]) return;
-
-  const btn = document.getElementById("submitBtn");
-  btn.disabled = true;
-  btn.textContent = "Sending...";
-
-  // Open WhatsApp with pack-specific message
-  const isPro = currentPack === "pro";
-  const msg = isPro
-    ? "Hi Raushan! Maine ₹49 pay kar diya Pro CC Pack (30 CCs) ke liye. Screenshot bhej raha/rahi hoon. Please CC files bhej do 🙏🎬"
-    : "Hi Raushan! Maine ₹19 pay kar diya Starter CC Pack (10 CCs) ke liye. Screenshot bhej raha/rahi hoon. Please CC files bhej do 🙏🎬";
-
-  window.open(`https://wa.me/919304286957?text=${encodeURIComponent(msg)}`, "_blank");
-
-  // Optional: Formspree email notification
-  // Replace YOUR_FORMSPREE_ID with actual ID from formspree.io
-  const formData = new FormData();
-  formData.append("_subject", isPro ? "🔥 NEW PRO PACK PURCHASE · ₹49" : "🎬 NEW STARTER PACK PURCHASE · ₹19");
-  formData.append("pack", isPro ? "Pro (30 CCs) - ₹49" : "Starter (10 CCs) - ₹19");
-  formData.append("screenshot", input.files[0]);
-
-  fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
-    method: "POST", body: formData, headers: { Accept: "application/json" },
-  })
-    .then(() => showSuccess())
-    .catch(() => showSuccess());
-}
-
-function showSuccess() {
-  closeModal();
-  setTimeout(() => {
-    const overlay = document.getElementById("successOverlay");
-    overlay.style.display = "flex";
-    requestAnimationFrame(() => overlay.classList.add("active"));
-    document.body.style.overflow = "hidden";
-  }, 280);
-}
-
-// ── Page init ─────────────────────────────────────────────────────────
+// ── DOMContentLoaded ──────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Scroll reveal
+  // If user previously clicked pay → show banner after page loads
+  const saved = localStorage.getItem("raushan_pack");
+  if (saved && PACK_INFO[saved]) {
+    setTimeout(() => showBanner(saved), 1200);
+  }
+
+  // ── Scroll reveal ──────────────────────────────────
   const els = document.querySelectorAll(".pack-card, .review-card, .step-item, .faq-item");
   if ("IntersectionObserver" in window) {
     const obs = new IntersectionObserver(
@@ -146,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Smooth scroll
+  // ── Smooth scroll ──────────────────────────────────
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", (e) => {
       const t = document.querySelector(a.getAttribute("href"));
@@ -154,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Nav scroll
-  const nav = document.querySelector(".nav");
+  // ── Nav scroll style ───────────────────────────────
+  const nav = document.getElementById("mainNav");
   window.addEventListener("scroll", () => {
     nav?.classList.toggle("scrolled", window.scrollY > 20);
   }, { passive: true });

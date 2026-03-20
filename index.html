@@ -1,79 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Premium CC Packs — RaushanExplains</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <div class="grain"></div>
   <div class="scanlines"></div>
 
-  <!-- ══ PAYMENT MODAL ════════════════════════════════════ -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-
-      <div class="modal-pill" id="modalPill">🎬 STARTER PACK · ₹19</div>
-      <h2 class="modal-title">Complete Payment</h2>
-      <p class="modal-sub">Scan QR or copy UPI ID · Pay exactly <strong id="modalAmount">₹19</strong></p>
-
-      <div class="modal-body">
-        <div class="qr-box">
-          <img src="qr1.jpeg" alt="QR" class="qr-img"/>
-          <span class="qr-apps">PhonePe · GPay · Paytm · Any UPI</span>
+  <!-- ══ STICKY DOWNLOAD BANNER ═══════════════════════════ -->
+  <div class="dl-banner" id="dlBanner">
+    <div class="dl-banner-inner">
+      <div class="dl-banner-left">
+        <span class="dl-banner-emoji">🎉</span>
+        <div>
+          <p class="dl-banner-title">Payment ho gayi? Ab download karo!</p>
+          <p class="dl-banner-sub" id="dlBannerSub">Starter Pack — 10 CC Files</p>
         </div>
-
-        <div class="upi-row-wrap">
-          <span class="upi-val">9304286957@ybl</span>
-          <button class="copy-btn" onclick="copyUPI()">Copy</button>
-        </div>
-
-        <div class="pay-amount-box">
-          <span>Pay exactly:</span>
-          <strong id="payAmount">₹19</strong>
-        </div>
-
-        <div class="sep"></div>
-
-        <p class="step-label">📸 Upload payment screenshot</p>
-        <label class="file-drop" for="fileInput">
-          <span id="fileText">Tap to upload screenshot</span>
-          <input type="file" id="fileInput" accept="image/*" onchange="handleFile(this)"/>
-        </label>
-        <img id="previewImg" class="preview-img" style="display:none" alt="preview"/>
-
-        <div class="wa-box">
-          <span>Faster? Also send on WhatsApp:</span>
-          <a id="waLink" href="#" target="_blank" class="wa-btn">💬 WhatsApp</a>
-        </div>
-
-        <button class="submit-btn" id="submitBtn" onclick="submitPayment()" disabled>
-          Submit Screenshot
-        </button>
-        <p class="modal-note">⚡ CC files WhatsApp pe bhej denge — usually within 30 mins</p>
       </div>
-    </div>
-  </div>
-
-  <!-- ══ SUCCESS MODAL ════════════════════════════════════ -->
-  <div class="modal-overlay" id="successOverlay" style="display:none">
-    <div class="modal modal--success">
-      <div class="tick">✓</div>
-      <h2 class="modal-title">Screenshot Received!</h2>
-      <p class="modal-sub">Verify karke <strong>CC files WhatsApp pe bhejte hain</strong> — within 30 mins.</p>
-      <p class="success-num">+91 93042 86957</p>
-      <button class="submit-btn" onclick="closeSuccess()" style="margin-top:8px">Done 🔥</button>
+      <a class="dl-banner-btn" id="dlBannerBtn" href="success.html?pack=starter" target="_blank">
+        ⬇ Download Karo
+      </a>
+      <button class="dl-banner-close" onclick="closeBanner()">✕</button>
     </div>
   </div>
 
   <!-- ══ NAV ══════════════════════════════════════════════ -->
-  <nav class="nav">
+  <nav class="nav" id="mainNav">
     <div class="nav-inner">
       <span class="logo">RAUSHAN<em>EXPLAINS</em></span>
       <a href="#packs" class="nav-btn">Get CC Pack ↓</a>
@@ -130,7 +93,6 @@
       <a href="#packs" class="hero-cta">View Packs ↓</a>
     </div>
 
-    <!-- floating color swatches -->
     <div class="swatches">
       <div class="swatch" style="--c:#ff6b35;--d:0s"></div>
       <div class="swatch" style="--c:#0f3460;--d:0.3s"></div>
@@ -172,7 +134,7 @@
           <li>✓ 10 premium CC files</li>
           <li>✓ Cinematic, moody, vibrant styles</li>
           <li>✓ Works on AE CC 2019+</li>
-          <li>✓ Delivered on WhatsApp</li>
+          <li>✓ Instant Google Drive download</li>
           <li>✓ How-to apply guide</li>
         </ul>
 
@@ -184,12 +146,17 @@
           <span class="pack-off">90% OFF</span>
         </div>
 
-        <button class="pack-btn" onclick="openModal('starter')">
-          Get Starter Pack
-        </button>
+        <a class="pack-btn" href="https://rzp.io/rzp/a0LjelTq" target="_blank" rel="noopener"
+          onclick="onPayClick('starter')">
+          Pay ₹19 — Get Starter Pack ↗
+        </a>
+
+        <p class="pack-note">
+          ⚡ Pay karo → wapas aao → neeche <strong>Download button</strong> click karo
+        </p>
       </div>
 
-      <!-- PRO — highlighted -->
+      <!-- PRO -->
       <div class="pack-card pack-card--pro" id="proCard">
         <div class="pack-best">⚡ BEST VALUE</div>
 
@@ -237,7 +204,7 @@
           <li>✓ 20 exclusive Pro-only CCs</li>
           <li>✓ Neon, film grain, retro styles</li>
           <li>✓ Works on AE CC 2019+</li>
-          <li>✓ Delivered on WhatsApp</li>
+          <li>✓ Instant Google Drive download</li>
           <li>✓ Bonus: CC layering tutorial</li>
         </ul>
 
@@ -249,14 +216,18 @@
           <span class="pack-off pack-off--pro">92% OFF 🔥</span>
         </div>
 
-        <button class="pack-btn pack-btn--pro" onclick="openModal('pro')">
-          Get Pro Pack
-        </button>
+        <a class="pack-btn pack-btn--pro" href="https://rzp.io/rzp/k5mL0ArG" target="_blank" rel="noopener"
+          onclick="onPayClick('pro')">
+          Pay ₹49 — Get Pro Pack ↗
+        </a>
+
+        <p class="pack-note">
+          ⚡ Pay karo → wapas aao → neeche <strong>Download button</strong> click karo
+        </p>
       </div>
 
     </div>
 
-    <!-- compare note -->
     <p class="compare-note">
       💡 Pro pack mein <strong>3x zyada CCs</strong> sirf <strong>₹30 extra</strong> mein — no brainer!
     </p>
@@ -275,14 +246,14 @@
       <div class="step-line"></div>
       <div class="step-item">
         <div class="step-n">02</div>
-        <h3>Pay via UPI</h3>
-        <p>QR scan karo ya UPI ID use karo — koi bhi UPI app chalega</p>
+        <h3>Pay via Razorpay</h3>
+        <p>UPI, Card, NetBanking — koi bhi method. 100% secure Razorpay payment.</p>
       </div>
       <div class="step-line"></div>
       <div class="step-item">
         <div class="step-n">03</div>
-        <h3>Get CC Files</h3>
-        <p>Screenshot bhejo → verify karenge → CC files WhatsApp pe bhej denge</p>
+        <h3>Download instantly</h3>
+        <p>Wapas site pe aao → Download button click karo → Google Drive se saari files lo!</p>
       </div>
     </div>
   </section>
@@ -295,17 +266,23 @@
       <div class="review-card">
         <div class="stars">★★★★★</div>
         <p>"Bhai ₹19 mein itna premium? Cinematic Orange CC ne meri edit ka level hi badal diya!"</p>
-        <div class="reviewer"><div class="rv-av">V</div><span>Vivek R. — Mumbai</span></div>
+        <div class="reviewer">
+          <div class="rv-av">V</div><span>Vivek R. — Mumbai</span>
+        </div>
       </div>
       <div class="review-card review-card--hl">
         <div class="stars">★★★★★</div>
         <p>"Pro pack liya — ₹49 mein 30 CCs? Literally best investment for any editor. Dark Moody CC is 🔥"</p>
-        <div class="reviewer"><div class="rv-av">S</div><span>Sahil K. — Delhi</span></div>
+        <div class="reviewer">
+          <div class="rv-av">S</div><span>Sahil K. — Delhi</span>
+        </div>
       </div>
       <div class="review-card">
         <div class="stars">★★★★★</div>
         <p>"Pro pack ke 30 CCs se har video ka vibe alag ho gaya. Reel views bhi double ho gaye!"</p>
-        <div class="reviewer"><div class="rv-av">A</div><span>Ananya M. — Pune</span></div>
+        <div class="reviewer">
+          <div class="rv-av">A</div><span>Ananya M. — Pune</span>
+        </div>
       </div>
     </div>
   </section>
@@ -317,11 +294,18 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary>CC files kaise milenge?<span>+</span></summary>
-        <p>Payment screenshot bhejo → verify karenge → CC files WhatsApp pe bhej denge. Usually 30 minutes ke andar!</p>
+        <p>Pay karo → wapas site pe aao → neeche "Download Karo" button click karo → Google Drive folder se saari CC
+          files download karo. Bilkul instant!</p>
+      </details>
+      <details class="faq-item">
+        <summary>Payment methods kya kya hain?<span>+</span></summary>
+        <p>Razorpay ke through — UPI (GPay, PhonePe, Paytm), Debit/Credit Card, Net Banking sab accept hota hai. 100%
+          secure.</p>
       </details>
       <details class="faq-item">
         <summary>Starter aur Pro mein kya fark hai?<span>+</span></summary>
-        <p>Starter mein 10 CC files hain ₹19 mein. Pro mein 30 CC files hain ₹49 mein — 20 exclusive Pro-only styles ke saath. Pro pack best value hai!</p>
+        <p>Starter mein 10 CC files hain ₹19 mein. Pro mein 30 CC files hain ₹49 mein — 20 exclusive Pro-only styles ke
+          saath. Pro pack best value hai!</p>
       </details>
       <details class="faq-item">
         <summary>Konsa After Effects version chahiye?<span>+</span></summary>
@@ -331,13 +315,16 @@
         <summary>CC kaise apply karte hain?<span>+</span></summary>
         <p>After Effects mein file import karo, timeline pe drag karo — bas! Bonus tutorial bhi milega saath mein.</p>
       </details>
+      <details class="faq-item">
+        <summary>Download nahi ho raha — kya karein?<span>+</span></summary>
+        <p>WhatsApp karo +91 93042 86957 — personally help karunga within 30 mins 🙏</p>
+      </details>
     </div>
   </section>
 
-  <!-- ══ FREE AE SECTION ══════════════════════════════════════ -->
+  <!-- ══ FREE AE SECTION ═══════════════════════════════════ -->
   <section class="free-ae" id="free-ae">
     <div class="free-ae-inner">
-
       <div class="free-ae-left">
         <div class="free-ae-kicker">
           <span class="kicker-dot"></span>
@@ -360,7 +347,6 @@
         </a>
         <p class="free-ae-note">Link kholega → apna OS choose karo → download shuru!</p>
       </div>
-
       <div class="free-ae-right">
         <div class="ae-card">
           <div class="ae-card-top">
@@ -370,21 +356,14 @@
           <h3>After Effects</h3>
           <p>Professional video editing & motion graphics</p>
           <div class="ae-os">
-            <div class="ae-os-item">
-              <span class="os-icon">🪟</span>
-              <span>Windows</span>
-            </div>
-            <div class="ae-os-item">
-              <span class="os-icon">🍎</span>
-              <span>Mac</span>
-            </div>
+            <div class="ae-os-item"><span class="os-icon">🪟</span><span>Windows</span></div>
+            <div class="ae-os-item"><span class="os-icon">🍎</span><span>Mac</span></div>
           </div>
           <a href="https://satvrn.li/" target="_blank" rel="noopener noreferrer" class="ae-dl-btn">
             ⬇ Download Now
           </a>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -401,4 +380,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
