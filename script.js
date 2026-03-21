@@ -7,11 +7,16 @@ const PACK_INFO = {
   pro:     { label: "Pro Pack — 30 CC Files",     url: "success.html?pack=pro" }
 };
 
-// Pay button click karo → localStorage save → Razorpay open
+// Razorpay Payment Button links
+const RZP_LINKS = {
+  starter: "https://rzp.io/rzp/a0LjelTq",
+  pro:     "https://rzp.io/rzp/k5mL0ArG"
+};
+
+// Pay button click → Razorpay open → localStorage save
 function onPayClick(pack) {
   localStorage.setItem("raushan_pack", pack);
-  // Banner sirf tab show hoga jab user wapas aayega
-  // (Razorpay redirect ke baad)
+  window.open(RZP_LINKS[pack], "_blank");
 }
 
 function showBanner(pack) {
@@ -28,38 +33,34 @@ function showBanner(pack) {
 function closeBanner() {
   var b = document.getElementById("dlBanner");
   if (b) b.classList.remove("show");
-  // localStorage clear karo — banner dubara nahi aayega
   localStorage.removeItem("raushan_pack");
 }
 
 // ── DOMContentLoaded ───────────────────────────────────
 document.addEventListener("DOMContentLoaded", function() {
 
-  // Banner sirf tab show ho jab ?paid=1 URL mein ho
-  // (Razorpay redirect ke baad aata hai)
+  // Banner SIRF tab show ho jab Razorpay ?paid=1 ke saath redirect kare
   var params = new URLSearchParams(window.location.search);
   var isPaid = params.get("paid") === "1";
   var saved  = localStorage.getItem("raushan_pack");
 
   if (isPaid && saved && PACK_INFO[saved]) {
     setTimeout(function() { showBanner(saved); }, 600);
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
 
   // ── Scroll reveal ──────────────────────────────────
   var els = document.querySelectorAll(".pack-card, .review-card, .step-item, .faq-item");
   if ("IntersectionObserver" in window) {
-    var obs = new IntersectionObserver(
-      function(entries, o) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity   = "1";
-            entry.target.style.transform = "translateY(0)";
-            o.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -20px 0px" }
-    );
+    var obs = new IntersectionObserver(function(entries, o) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity   = "1";
+          entry.target.style.transform = "translateY(0)";
+          o.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
     els.forEach(function(el, i) {
       el.style.opacity    = "0";
       el.style.transform  = "translateY(20px)";
