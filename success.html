@@ -1,390 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Download Your CC Pack — RaushanExplains</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #060608;
-      --bg2: #0e0e12;
-      --bg3: #16161c;
-      --text: #f0f0f5;
-      --text2: #7a7a8a;
-      --text3: #4a4a5a;
-      --accent: #ff5c00;
-      --pro: #c8ff00;
-      --line: rgba(255, 255, 255, 0.06);
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-body: 'Space Grotesk', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --bg:#060608;--bg2:#0e0e12;--bg3:#16161c;
+      --text:#f0f0f5;--text2:#7a7a8a;--text3:#4a4a5a;
+      --accent:#ff5c00;--pro:#c8ff00;
+      --line:rgba(255,255,255,0.06);
+      --font-display:'Bebas Neue',sans-serif;
+      --font-body:'Space Grotesk',sans-serif;
+      --font-mono:'JetBrains Mono',monospace;
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased;}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px 180px;}
+    .wrap{position:relative;z-index:1;width:100%;max-width:520px;display:flex;flex-direction:column;align-items:center;gap:28px;animation:fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .tick{width:70px;height:70px;background:rgba(255,92,0,0.10);border:1px solid rgba(255,92,0,0.24);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;animation:popIn 0.5s 0.15s cubic-bezier(0.34,1.56,0.64,1) both;}
+    @keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+    .title{font-family:var(--font-display);font-size:clamp(2rem,8vw,3rem);letter-spacing:0.03em;text-align:center;line-height:1;}
+    .title em{color:var(--accent);font-style:normal}
+    .sub{font-size:0.95rem;color:var(--text2);text-align:center;line-height:1.7;max-width:400px;}
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
+    /* No pack selected state */
+    .no-pack{width:100%;background:rgba(255,92,0,0.06);border:1px solid rgba(255,92,0,0.2);border-radius:14px;padding:20px;text-align:center;display:none;}
+    .no-pack p{font-size:0.9rem;color:var(--text2);line-height:1.6;}
+    .no-pack strong{color:var(--text)}
+    .back-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-weight:700;font-size:0.9rem;padding:12px 24px;border-radius:999px;text-decoration:none;margin-top:12px;transition:background 0.18s;}
+    .back-btn:hover{background:#ff7a2a}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      -webkit-font-smoothing: antialiased;
-    }
+    .selector-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.14em;color:var(--text2);text-align:center;}
+    .choices{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .choice{background:var(--bg2);border:2px solid var(--line);border-radius:14px;padding:18px 14px;cursor:pointer;transition:border-color 0.2s,transform 0.18s,box-shadow 0.2s;display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;user-select:none;}
+    .choice:hover{border-color:rgba(255,92,0,0.35);transform:translateY(-3px);}
+    .choice.sel-starter{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 8px 24px rgba(255,92,0,0.14);}
+    .choice.sel-pro{border-color:var(--pro);box-shadow:0 0 0 1px var(--pro),0 8px 24px rgba(200,255,0,0.14);}
+    .choice-check{position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:#000;}
+    .sel-starter .choice-check{display:flex;background:var(--accent)}
+    .sel-pro .choice-check{display:flex;background:var(--pro)}
+    .choice-tag{font-family:var(--font-mono);font-size:0.64rem;letter-spacing:0.10em;color:var(--text2);background:var(--bg3);border:1px solid var(--line);padding:3px 8px;border-radius:5px;width:fit-content;}
+    .choice-tag.pro{color:var(--pro);background:rgba(200,255,0,0.07);border-color:rgba(200,255,0,0.18)}
+    .choice-count{font-family:var(--font-display);font-size:2rem;line-height:1;color:var(--text);}
+    .choice-count.pro{color:var(--pro)}
+    .choice-price{font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);}
+    .choice-price.pro{color:var(--pro)}
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
-    }
+    .dl-btn{width:100%;padding:16px;border-radius:999px;border:none;font-family:var(--font-body);font-size:1rem;font-weight:700;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:#000;box-shadow:0 8px 28px rgba(255,92,0,0.28);transition:background 0.18s,transform 0.16s,box-shadow 0.18s,opacity 0.2s;opacity:0.35;pointer-events:none;cursor:not-allowed;}
+    .dl-btn.ready{opacity:1;pointer-events:auto;cursor:pointer;animation:glowPulse 2.5s ease-in-out infinite;}
+    .dl-btn.ready:hover{background:#ff7a2a;transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,92,0,0.40);animation:none;}
+    .dl-btn.pro-style{background:var(--pro);box-shadow:0 8px 28px rgba(200,255,0,0.22);}
+    .dl-btn.pro-style.ready:hover{background:#d4ff1a;box-shadow:0 12px 32px rgba(200,255,0,0.34);}
+    @keyframes glowPulse{0%,100%{box-shadow:0 8px 28px rgba(255,92,0,0.28)}50%{box-shadow:0 8px 40px rgba(255,92,0,0.52)}}
 
-    .wrap {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 520px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px;
-      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(24px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    /* Tick */
-    .tick {
-      width: 70px;
-      height: 70px;
-      background: rgba(255, 92, 0, 0.10);
-      border: 1px solid rgba(255, 92, 0, 0.24);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      animation: popIn 0.5s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-    }
-
-    @keyframes popIn {
-      from {
-        transform: scale(0);
-        opacity: 0
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1
-      }
-    }
-
-    .title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 8vw, 3rem);
-      letter-spacing: 0.03em;
-      text-align: center;
-      line-height: 1;
-    }
-
-    .title em {
-      color: var(--accent);
-      font-style: normal
-    }
-
-    .sub {
-      font-size: 0.95rem;
-      color: var(--text2);
-      text-align: center;
-      line-height: 1.7;
-      max-width: 400px;
-    }
-
-    /* Pack selector */
-    .selector-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      color: var(--text2);
-      text-align: center;
-    }
-
-    .choices {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .choice {
-      background: var(--bg2);
-      border: 2px solid var(--line);
-      border-radius: 14px;
-      padding: 18px 14px;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.18s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      position: relative;
-      overflow: hidden;
-      user-select: none;
-    }
-
-    .choice:hover {
-      border-color: rgba(255, 92, 0, 0.35);
-      transform: translateY(-3px);
-    }
-
-    .choice.sel-starter {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent), 0 8px 24px rgba(255, 92, 0, 0.14);
-    }
-
-    .choice.sel-pro {
-      border-color: var(--pro);
-      box-shadow: 0 0 0 1px var(--pro), 0 8px 24px rgba(200, 255, 0, 0.14);
-    }
-
-    .choice-check {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: #000;
-    }
-
-    .sel-starter .choice-check {
-      display: flex;
-      background: var(--accent)
-    }
-
-    .sel-pro .choice-check {
-      display: flex;
-      background: var(--pro)
-    }
-
-    .choice-tag {
-      font-family: var(--font-mono);
-      font-size: 0.64rem;
-      letter-spacing: 0.10em;
-      color: var(--text2);
-      background: var(--bg3);
-      border: 1px solid var(--line);
-      padding: 3px 8px;
-      border-radius: 5px;
-      width: fit-content;
-    }
-
-    .choice-tag.pro {
-      color: var(--pro);
-      background: rgba(200, 255, 0, 0.07);
-      border-color: rgba(200, 255, 0, 0.18)
-    }
-
-    .choice-count {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      line-height: 1;
-      color: var(--text);
-    }
-
-    .choice-count.pro {
-      color: var(--pro)
-    }
-
-    .choice-price {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-    }
-
-    .choice-price.pro {
-      color: var(--pro)
-    }
-
-    /* Download button */
-    .dl-btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 999px;
-      border: none;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--accent);
-      color: #000;
-      box-shadow: 0 8px 28px rgba(255, 92, 0, 0.28);
-      transition: background 0.18s, transform 0.16s, box-shadow 0.18s, opacity 0.2s;
-      opacity: 0.35;
-      pointer-events: none;
-      cursor: not-allowed;
-    }
-
-    .dl-btn.ready {
-      opacity: 1;
-      pointer-events: auto;
-      cursor: pointer;
-      animation: glowPulse 2.5s ease-in-out infinite;
-    }
-
-    .dl-btn.ready:hover {
-      background: #ff7a2a;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(255, 92, 0, 0.40);
-      animation: none;
-    }
-
-    .dl-btn.pro-style {
-      background: var(--pro);
-      box-shadow: 0 8px 28px rgba(200, 255, 0, 0.22);
-    }
-
-    .dl-btn.pro-style.ready:hover {
-      background: #d4ff1a;
-      box-shadow: 0 12px 32px rgba(200, 255, 0, 0.34);
-    }
-
-    @keyframes glowPulse {
-
-      0%,
-      100% {
-        box-shadow: 0 8px 28px rgba(255, 92, 0, 0.28)
-      }
-
-      50% {
-        box-shadow: 0 8px 40px rgba(255, 92, 0, 0.52)
-      }
-    }
-
-    .dl-hint {
-      font-size: 0.76rem;
-      color: var(--text2);
-      text-align: center;
-      line-height: 1.6;
-      font-family: var(--font-mono);
-    }
-
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--line)
-    }
-
-    /* WhatsApp help box */
-    .wa-box {
-      width: 100%;
-      background: rgba(37, 211, 102, 0.04);
-      border: 1px solid rgba(37, 211, 102, 0.12);
-      border-radius: 14px;
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .wa-box p {
-      font-size: 0.86rem;
-      color: var(--text2);
-      line-height: 1.65
-    }
-
-    .wa-box strong {
-      color: var(--text)
-    }
-
-    .wa-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(37, 211, 102, 0.10);
-      border: 1px solid rgba(37, 211, 102, 0.22);
-      color: #25d366;
-      font-size: 0.86rem;
-      font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      transition: background 0.16s;
-      width: fit-content;
-    }
-
-    .wa-link:hover {
-      background: rgba(37, 211, 102, 0.20)
-    }
-
-    .back {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--text3);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      transition: color 0.16s;
-    }
-
-    .back:hover {
-      color: var(--text2)
-    }
-
-    @media(max-width:420px) {
-      .choices {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px
-      }
-
-      .choice {
-        padding: 14px 10px
-      }
-
-      .choice-count {
-        font-size: 1.7rem
-      }
-    }
+    .dl-hint{font-size:0.76rem;color:var(--text2);text-align:center;line-height:1.6;font-family:var(--font-mono);}
+    .divider{width:100%;height:1px;background:var(--line)}
+    .wa-box{width:100%;background:rgba(37,211,102,0.04);border:1px solid rgba(37,211,102,0.12);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
+    .wa-box p{font-size:0.86rem;color:var(--text2);line-height:1.65}
+    .wa-box strong{color:var(--text)}
+    .wa-link{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.10);border:1px solid rgba(37,211,102,0.22);color:#25d366;font-size:0.86rem;font-weight:600;padding:10px 18px;border-radius:999px;text-decoration:none;transition:background 0.16s;width:fit-content;}
+    .wa-link:hover{background:rgba(37,211,102,0.20)}
+    .back{font-family:var(--font-mono);font-size:0.74rem;color:var(--text3);text-decoration:none;letter-spacing:0.06em;transition:color 0.16s;}
+    .back:hover{color:var(--text2)}
+    @media(max-width:420px){.choices{gap:8px}.choice{padding:14px 10px}.choice-count{font-size:1.7rem}}
   </style>
 </head>
-
 <body>
   <div class="wrap">
 
@@ -395,38 +80,42 @@
       <p class="sub">Neeche apna pack select karo aur seedha <strong>Google Drive</strong> se download karo 🔥</p>
     </div>
 
-    <p class="selector-label">TUMNE KAUNSA PACK LIYA?</p>
+    <!-- Agar koi seedha success.html khole bina payment ke -->
+    <div class="no-pack" id="noPack">
+      <p><strong>Pehle payment karo!</strong><br>Ye page sirf payment ke baad accessible hai.</p>
+      <a class="back-btn" href="index.html">← Wapas Jao & Pack Kharido</a>
+    </div>
 
-    <div class="choices">
+    <p class="selector-label" id="selectorLabel" style="display:none">TUMNE KAUNSA PACK LIYA?</p>
+
+    <div class="choices" id="choicesDiv" style="display:none">
       <div class="choice" id="cStarter" onclick="selectPack('starter')">
         <div class="choice-check">✓</div>
         <span class="choice-tag">STARTER</span>
-        <span class="choice-count">10 <small
-            style="font-size:0.9rem;color:var(--text2);font-family:var(--font-body)">CCs</small></span>
+        <span class="choice-count">10 <small style="font-size:0.9rem;color:var(--text2);font-family:var(--font-body)">CCs</small></span>
         <span class="choice-price">₹19</span>
       </div>
       <div class="choice" id="cPro" onclick="selectPack('pro')">
         <div class="choice-check">✓</div>
         <span class="choice-tag pro">PRO</span>
-        <span class="choice-count pro">30 <small
-            style="font-size:0.9rem;color:var(--text2);font-family:var(--font-body)">CCs</small></span>
+        <span class="choice-count pro">30 <small style="font-size:0.9rem;color:var(--text2);font-family:var(--font-body)">CCs</small></span>
         <span class="choice-price pro">₹49</span>
       </div>
     </div>
 
-    <a class="dl-btn" id="dlBtn" href="#" target="_blank" rel="noopener">
+    <a class="dl-btn" id="dlBtn" href="#" target="_blank" rel="noopener" style="display:none">
       <span>⬇</span><span id="dlBtnText">Pehle pack select karo upar se</span>
     </a>
 
-    <p class="dl-hint" id="dlHint">↑ Starter ya Pro — jo liya wo select karo</p>
+    <p class="dl-hint" id="dlHint" style="display:none">↑ Starter ya Pro — jo liya wo select karo</p>
 
     <div class="divider"></div>
 
     <div class="wa-box">
-      <p><strong>Koi problem?</strong> Ya galat pack select kiya? WhatsApp karo — personally sort kar dunga 🙏</p>
+      <p><strong>Koi problem?</strong> WhatsApp karo — personally sort kar dunga 🙏</p>
       <a class="wa-link" id="waLink"
-        href="https://wa.me/919304286957?text=Hi%20Raushan!%20Maine%20CC%20Pack%20kharida%20hai.%20Help%20chahiye%20%F0%9F%99%8F"
-        target="_blank">
+         href="https://wa.me/919304286957?text=Hi%20Raushan!%20Maine%20CC%20Pack%20kharida%20hai.%20Help%20chahiye%20%F0%9F%99%8F"
+         target="_blank">
         💬 WhatsApp — +91 93042 86957
       </a>
     </div>
@@ -438,50 +127,46 @@
   <script>
     const LINKS = {
       starter: "https://drive.google.com/drive/folders/1tthonhENHyUiacYiBdq3YiMqZ06c6dPe?usp=sharing",
-      pro: "https://drive.google.com/drive/folders/1LDdw095NQMsrJDUZoc2u5vDCsZ9Ekmro?usp=sharing"
+      pro:     "https://drive.google.com/drive/folders/1LDdw095NQMsrJDUZoc2u5vDCsZ9Ekmro?usp=sharing"
     };
-
     const WA = {
       starter: "Hi%20Raushan!%20Maine%20%E2%82%B919%20pay%20karke%20Starter%20CC%20Pack%20liya.%20Help%20chahiye%20%F0%9F%99%8F",
-      pro: "Hi%20Raushan!%20Maine%20%E2%82%B949%20pay%20karke%20Pro%20CC%20Pack%20liya.%20Help%20chahiye%20%F0%9F%99%8F"
+      pro:     "Hi%20Raushan!%20Maine%20%E2%82%B949%20pay%20karke%20Pro%20CC%20Pack%20liya.%20Help%20chahiye%20%F0%9F%99%8F"
     };
 
+    // ✅ SIRF URL param se auto-select — localStorage se NAHI
+    // Razorpay redirect: success.html?pack=starter ya success.html?pack=pro
+    var param = new URLSearchParams(window.location.search).get("pack");
+
+    if (param === "starter" || param === "pro") {
+      // Valid payment redirect — UI show karo
+      document.getElementById("selectorLabel").style.display = "block";
+      document.getElementById("choicesDiv").style.display    = "grid";
+      document.getElementById("dlBtn").style.display         = "flex";
+      document.getElementById("dlHint").style.display        = "block";
+      // ✅ localStorage clear karo — fresh session ke liye
+      localStorage.removeItem("raushan_pack");
+      selectPack(param);
+    } else {
+      // Koi URL param nahi — seedha aaya hai bina payment ke
+      document.getElementById("noPack").style.display = "flex";
+    }
+
     function selectPack(pack) {
-      const isPro = pack === "pro";
-
-      // Card highlight
+      var isPro = pack === "pro";
       document.getElementById("cStarter").className = "choice" + (pack === "starter" ? " sel-starter" : "");
-      document.getElementById("cPro").className = "choice" + (pack === "pro" ? " sel-pro" : "");
-
-      // Download button
-      const btn = document.getElementById("dlBtn");
-      const text = document.getElementById("dlBtnText");
-      const hint = document.getElementById("dlHint");
-
+      document.getElementById("cPro").className     = "choice" + (pack === "pro"     ? " sel-pro"     : "");
+      var btn  = document.getElementById("dlBtn");
+      var text = document.getElementById("dlBtnText");
+      var hint = document.getElementById("dlHint");
       btn.href = LINKS[pack];
       btn.className = "dl-btn ready" + (isPro ? " pro-style" : "");
       text.textContent = isPro ? "Download Pro Pack (30 CCs) ↗" : "Download Starter Pack (10 CCs) ↗";
       hint.textContent = isPro
         ? "Google Drive folder khulega — saari 30 CC files wahan hain"
         : "Google Drive folder khulega — saari 10 CC files wahan hain";
-
-      // WhatsApp link update
-      document.getElementById("waLink").href = `https://wa.me/919304286957?text=${WA[pack]}`;
-
-      // Save selection
-      localStorage.setItem("raushan_pack", pack);
-    }
-
-    // Auto-select from URL param (?pack=starter or ?pack=pro)
-    const param = new URLSearchParams(window.location.search).get("pack");
-    if (param === "starter" || param === "pro") {
-      selectPack(param);
-    } else {
-      // Try localStorage fallback
-      const saved = localStorage.getItem("raushan_pack");
-      if (saved === "starter" || saved === "pro") selectPack(saved);
+      document.getElementById("waLink").href = "https://wa.me/919304286957?text=" + WA[pack];
     }
   </script>
 </body>
-
 </html>

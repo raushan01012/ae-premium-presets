@@ -7,15 +7,14 @@ const PACK_INFO = {
   pro:     { label: "Pro Pack — 30 CC Files",     url: "success.html?pack=pro" }
 };
 
-// Razorpay Payment Button links
 const RZP_LINKS = {
   starter: "https://rzp.io/rzp/a0LjelTq",
   pro:     "https://rzp.io/rzp/k5mL0ArG"
 };
 
-// Pay button click → Razorpay open → localStorage save
+// Pay button click → seedha Razorpay kholo
+// localStorage bilkul use NAHI karte yahan
 function onPayClick(pack) {
-  localStorage.setItem("raushan_pack", pack);
   window.open(RZP_LINKS[pack], "_blank");
 }
 
@@ -33,19 +32,21 @@ function showBanner(pack) {
 function closeBanner() {
   var b = document.getElementById("dlBanner");
   if (b) b.classList.remove("show");
-  localStorage.removeItem("raushan_pack");
 }
 
 // ── DOMContentLoaded ───────────────────────────────────
 document.addEventListener("DOMContentLoaded", function() {
 
-  // Banner SIRF tab show ho jab Razorpay ?paid=1 ke saath redirect kare
+  // ✅ Banner SIRF tab show ho jab ?paid=starter ya ?paid=pro URL mein ho
+  // Razorpay dashboard mein redirect URL set karo:
+  // Starter: https://raushan01012.github.io/ae-premium-presets/index.html?paid=starter
+  // Pro:     https://raushan01012.github.io/ae-premium-presets/index.html?paid=pro
   var params = new URLSearchParams(window.location.search);
-  var isPaid = params.get("paid") === "1";
-  var saved  = localStorage.getItem("raushan_pack");
+  var paid   = params.get("paid"); // "starter" ya "pro" ya null
 
-  if (isPaid && saved && PACK_INFO[saved]) {
-    setTimeout(function() { showBanner(saved); }, 600);
+  if (paid && PACK_INFO[paid]) {
+    setTimeout(function() { showBanner(paid); }, 600);
+    // URL clean karo
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 
@@ -64,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
     els.forEach(function(el, i) {
       el.style.opacity    = "0";
       el.style.transform  = "translateY(20px)";
-      el.style.transition = "opacity 0.45s ease " + (i * 0.05) + "s, transform 0.45s ease " + (i * 0.05) + "s";
+      el.style.transition = "opacity 0.45s ease " + (i*0.05) + "s, transform 0.45s ease " + (i*0.05) + "s";
       obs.observe(el);
     });
   }

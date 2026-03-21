@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +8,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Hide Razorpay's default button — we use our own styled button */
+    .rzp-form { display:none }
+  </style>
 </head>
-
 <body>
 
   <div class="grain"></div>
@@ -53,44 +55,26 @@
       <span>PREMIUM CC</span><span>•</span>
       <span>CINEMATIC LOOK</span><span>•</span>
     </div>
-
     <div class="hero-content">
       <div class="hero-kicker">
         <span class="kicker-dot"></span>
         <span>PREMIUM AFTER EFFECTS CC PACKS</span>
       </div>
-
       <h1 class="hero-title">
         <span class="ht-line">MAKE YOUR</span>
         <span class="ht-line accent-line">EDITS HIT</span>
         <span class="ht-line">DIFFERENT.</span>
       </h1>
-
-      <p class="hero-desc">
-        Pro-level color corrections used by top creators —
-        now at a price that's cheaper than your next snack 🔥
-      </p>
-
+      <p class="hero-desc">Pro-level color corrections used by top creators — now at a price that's cheaper than your next snack 🔥</p>
       <div class="hero-badges">
-        <div class="hbadge">
-          <span class="hbadge-num">20+</span>
-          <span class="hbadge-label">Total CCs</span>
-        </div>
+        <div class="hbadge"><span class="hbadge-num">20+</span><span class="hbadge-label">Total CCs</span></div>
         <div class="hbadge-sep"></div>
-        <div class="hbadge">
-          <span class="hbadge-num">AE</span>
-          <span class="hbadge-label">After Effects</span>
-        </div>
+        <div class="hbadge"><span class="hbadge-num">AE</span><span class="hbadge-label">After Effects</span></div>
         <div class="hbadge-sep"></div>
-        <div class="hbadge">
-          <span class="hbadge-num">₹19</span>
-          <span class="hbadge-label">Starts at</span>
-        </div>
+        <div class="hbadge"><span class="hbadge-num">₹19</span><span class="hbadge-label">Starts at</span></div>
       </div>
-
       <a href="#packs" class="hero-cta">View Packs ↓</a>
     </div>
-
     <div class="swatches">
       <div class="swatch" style="--c:#ff6b35;--d:0s"></div>
       <div class="swatch" style="--c:#0f3460;--d:0.3s"></div>
@@ -105,7 +89,6 @@
   <section class="packs" id="packs">
     <div class="packs-label">CHOOSE YOUR PACK</div>
     <h2 class="packs-title">Two Packs.<br>Both Insane Value.</h2>
-
     <div class="packs-grid">
 
       <!-- STARTER -->
@@ -134,17 +117,20 @@
           <li>✓ How-to apply guide</li>
         </ul>
         <div class="pack-price-row">
-          <div>
-            <span class="pack-old">₹199</span>
-            <span class="pack-new">₹19</span>
-          </div>
+          <div><span class="pack-old">₹199</span><span class="pack-new">₹19</span></div>
           <span class="pack-off">90% OFF</span>
         </div>
-        <!-- ✅ BUTTON hai, LINK nahi — localStorage sirf payment ke baad set hoga -->
-        <button class="pack-btn" onclick="onPayClick('starter')">
+
+        <!-- Razorpay Payment Button — STARTER -->
+        <form class="rzp-form" id="rzp-form-starter">
+          <script src="https://checkout.razorpay.com/v1/payment-button.js"
+            data-payment_button_id="pl_STdJthtlm0fuXN" async></script>
+        </form>
+        <!-- Hamara styled button jo upar wale ko trigger karta hai -->
+        <button class="pack-btn" onclick="triggerRzp('starter')">
           Pay ₹19 — Get Starter Pack ↗
         </button>
-        <p class="pack-note">⚡ Pay karo → wapas aao → neeche <strong>Download button</strong> click karo</p>
+        <p class="pack-note">⚡ Pay karo → automatically download page khulega</p>
       </div>
 
       <!-- PRO -->
@@ -196,24 +182,24 @@
           <li>✓ Bonus: CC layering tutorial</li>
         </ul>
         <div class="pack-price-row">
-          <div>
-            <span class="pack-old">₹599</span>
-            <span class="pack-new pro-price">₹49</span>
-          </div>
+          <div><span class="pack-old">₹599</span><span class="pack-new pro-price">₹49</span></div>
           <span class="pack-off pack-off--pro">92% OFF 🔥</span>
         </div>
-        <!-- ✅ BUTTON hai, LINK nahi -->
-        <button class="pack-btn pack-btn--pro" onclick="onPayClick('pro')">
+
+        <!-- Razorpay Payment Button — PRO -->
+        <form class="rzp-form" id="rzp-form-pro">
+          <script src="https://checkout.razorpay.com/v1/payment-button.js"
+            data-payment_button_id="pl_STdLMWl0z3xrir" async></script>
+        </form>
+        <!-- Hamara styled button -->
+        <button class="pack-btn pack-btn--pro" onclick="triggerRzp('pro')">
           Pay ₹49 — Get Pro Pack ↗
         </button>
-        <p class="pack-note">⚡ Pay karo → wapas aao → neeche <strong>Download button</strong> click karo</p>
+        <p class="pack-note">⚡ Pay karo → automatically download page khulega</p>
       </div>
 
     </div>
-
-    <p class="compare-note">
-      💡 Pro pack mein <strong>3x zyada CCs</strong> sirf <strong>₹30 extra</strong> mein — no brainer!
-    </p>
+    <p class="compare-note">💡 Pro pack mein <strong>3x zyada CCs</strong> sirf <strong>₹30 extra</strong> mein — no brainer!</p>
   </section>
 
   <!-- ══ HOW IT WORKS ══════════════════════════════════════ -->
@@ -236,7 +222,7 @@
       <div class="step-item">
         <div class="step-n">03</div>
         <h3>Download instantly</h3>
-        <p>Wapas site pe aao → Download button click karo → Google Drive se saari files lo!</p>
+        <p>Payment ke baad automatically download page khulega!</p>
       </div>
     </div>
   </section>
@@ -271,7 +257,7 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary>CC files kaise milenge?<span>+</span></summary>
-        <p>Pay karo → wapas site pe aao → neeche "Download Karo" button click karo → Google Drive folder se saari CC files download karo. Bilkul instant!</p>
+        <p>Pay karo → payment ke baad automatically download page khulega → Google Drive se saari CC files lo!</p>
       </details>
       <details class="faq-item">
         <summary>Payment methods kya kya hain?<span>+</span></summary>
@@ -279,7 +265,7 @@
       </details>
       <details class="faq-item">
         <summary>Starter aur Pro mein kya fark hai?<span>+</span></summary>
-        <p>Starter mein 10 CC files hain ₹19 mein. Pro mein 30 CC files hain ₹49 mein — 20 exclusive Pro-only styles ke saath. Pro pack best value hai!</p>
+        <p>Starter mein 10 CC files hain ₹19 mein. Pro mein 30 CC files hain ₹49 mein — 20 exclusive Pro-only styles ke saath.</p>
       </details>
       <details class="faq-item">
         <summary>Konsa After Effects version chahiye?<span>+</span></summary>
@@ -287,7 +273,7 @@
       </details>
       <details class="faq-item">
         <summary>CC kaise apply karte hain?<span>+</span></summary>
-        <p>After Effects mein file import karo, timeline pe drag karo — bas! Bonus tutorial bhi milega saath mein.</p>
+        <p>After Effects mein file import karo, timeline pe drag karo — bas! Tutorial bhi milega saath mein.</p>
       </details>
       <details class="faq-item">
         <summary>Download nahi ho raha — kya karein?<span>+</span></summary>
@@ -300,24 +286,16 @@
   <section class="free-ae" id="free-ae">
     <div class="free-ae-inner">
       <div class="free-ae-left">
-        <div class="free-ae-kicker">
-          <span class="kicker-dot"></span>
-          <span>100% FREE · WINDOWS & MAC</span>
-        </div>
+        <div class="free-ae-kicker"><span class="kicker-dot"></span><span>100% FREE · WINDOWS & MAC</span></div>
         <h2 class="free-ae-title">After Effects<br><em>Bilkul Free</em><br>Mein Lo 🎬</h2>
-        <p class="free-ae-desc">After Effects install karna chahte ho bina kuch pay kiye? Mere website pe jao — Windows aur Mac dono ke liye free mein mil jaayega. Plugin ke saath!</p>
-        <div class="free-ae-tags">
-          <span>✓ Windows</span><span>✓ Mac</span><span>✓ Plugin included</span><span>✓ 100% Free</span>
-        </div>
+        <p class="free-ae-desc">After Effects install karna chahte ho bina kuch pay kiye? Mere website pe jao — Windows aur Mac dono ke liye free mein mil jaayega!</p>
+        <div class="free-ae-tags"><span>✓ Windows</span><span>✓ Mac</span><span>✓ Plugin included</span><span>✓ 100% Free</span></div>
         <a href="https://satvrn.li/" target="_blank" rel="noopener noreferrer" class="free-ae-btn">Get After Effects Free →</a>
         <p class="free-ae-note">Link kholega → apna OS choose karo → download shuru!</p>
       </div>
       <div class="free-ae-right">
         <div class="ae-card">
-          <div class="ae-card-top">
-            <div class="ae-icon">Ae</div>
-            <span class="ae-badge">FREE</span>
-          </div>
+          <div class="ae-card-top"><div class="ae-icon">Ae</div><span class="ae-badge">FREE</span></div>
           <h3>After Effects</h3>
           <p>Professional video editing & motion graphics</p>
           <div class="ae-os">
@@ -334,13 +312,29 @@
   <footer class="footer">
     <span class="footer-logo">RAUSHAN<em>EXPLAINS</em></span>
     <div class="footer-links">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
+      <a href="#">Privacy</a><a href="#">Terms</a>
       <a href="https://instagram.com/raushanexplains" target="_blank">Instagram</a>
     </div>
     <p class="footer-copy">© 2026 RaushanExplains. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Razorpay ka hidden button click karo
+    function triggerRzp(pack) {
+      var form = document.getElementById('rzp-form-' + pack);
+      if (!form) return;
+      var btn = form.querySelector('button');
+      if (btn) {
+        btn.click();
+      } else {
+        // Agar button load nahi hua abhi — thoda wait karo
+        setTimeout(function() {
+          var b = form.querySelector('button');
+          if (b) b.click();
+        }, 800);
+      }
+    }
+  </script>
 </body>
 </html>
